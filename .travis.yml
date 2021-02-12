@@ -1,5 +1,8 @@
 dist: xenial
 
+notifications:
+  slack:
+    on_success: always
 services:
   - postgresql
 addons:
@@ -16,4 +19,9 @@ install:
   - pip install -r requirements.txt
 script:
   - cd decide
-  - python manage.py test authentication
+  - python manage.py test census
+deploy:
+  provider: heroku
+  app:  alorodlla-egc-examen
+  strategy: git
+  api_key: $HEROKU_AUTH_TOKEN
